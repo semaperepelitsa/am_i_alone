@@ -1,8 +1,8 @@
 require "chingu"
 
-class Gun < Chingu::GameObject
+class Handgun < Chingu::GameObject
   def initialize(options = {})
-    super(options.merge(image: 'gun.png', zorder: 310))
+    super(options.merge(image: 'handgun.png', zorder: 310))
     @player = options.fetch(:player)
   end
 

@@ -1,5 +1,5 @@
 require "chingu"
-require "gun"
+require "handgun"
 
 class Player < Chingu::GameObject
   traits :velocity
@@ -14,7 +14,7 @@ class Player < Chingu::GameObject
                    :holding_up,
                    :holding_down ]
 
-    self.weapon = Gun.create(player: self)
+    self.weapon = Handgun.create(player: self)
     @game_area = options.fetch(:game_area)
   end
 
