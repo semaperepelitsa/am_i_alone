@@ -6,7 +6,7 @@ class Play < Chingu::GameState
   traits :viewport
 
   def setup
-    viewport.game_area = [ 0, 0,   3000, $window.height]
+    # viewport.game_area = [ 0, 0,   3000, $window.height]
     @parallax = Chingu::Parallax.new(:x => 0, :y => 0, :rotation_center => :top_left)
     @parallax.add_layer(
       :image => "grass.png",
