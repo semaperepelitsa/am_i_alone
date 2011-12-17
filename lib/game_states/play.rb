@@ -1,5 +1,6 @@
 require "chingu"
 require "player"
+require "cursor"
 
 class Play < Chingu::GameState
   traits :viewport
@@ -15,6 +16,8 @@ class Play < Chingu::GameState
     )
 
     self.input = { :p => :pause }
+
+    Cursor.create
 
     @player = Player.create(x: 50, y: 300)
     @bg = Gosu::Color::GREEN
