@@ -14,6 +14,8 @@ class Play < Chingu::GameState
       # :damping => 5
     )
 
+    self.input = { :p => :pause }
+
     @player = Player.create(x: 50, y: 300, zorder: 300)
     @bg = Gosu::Color::GREEN
   end
@@ -29,5 +31,9 @@ class Play < Chingu::GameState
     viewport.center_around(@player)
     @parallax.camera_x, @parallax.camera_y = self.viewport.x.to_i, self.viewport.y.to_i
     @parallax.update
+  end
+
+  def pause
+    push_game_state(Chingu::GameStates::Pause)
   end
 end
