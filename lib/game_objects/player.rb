@@ -1,5 +1,4 @@
 require "chingu"
-include Gosu
 
 class Player < Chingu::GameObject
   traits :velocity

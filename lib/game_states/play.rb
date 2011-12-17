@@ -1,6 +1,4 @@
 require "chingu"
-include Gosu
-
 require "player"
 
 class Play < Chingu::GameState
@@ -17,7 +15,7 @@ class Play < Chingu::GameState
     )
 
     @player = Player.create(x: 50, y: 300, zorder: 300)
-    @bg = Color::GREEN
+    @bg = Gosu::Color::GREEN
   end
 
   def draw

@@ -1,6 +1,4 @@
 require "chingu"
-include Gosu
-
 require "play"
 
 class Game < Chingu::Window
