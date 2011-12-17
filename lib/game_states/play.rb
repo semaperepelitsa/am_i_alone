@@ -19,7 +19,7 @@ class Play < Chingu::GameState
 
     Cursor.create
 
-    @player = Player.create(x: 50, y: 300)
+    @player = Player.create(x: 50, y: 300, game_area: viewport.game_area)
     @bg = Gosu::Color::GREEN
   end
 

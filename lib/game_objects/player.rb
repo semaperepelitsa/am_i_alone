@@ -15,6 +15,7 @@ class Player < Chingu::GameObject
                    :holding_down ]
 
     self.weapon = Gun.create(player: self)
+    @game_area = options.fetch(:game_area)
   end
 
   def update
@@ -25,6 +26,12 @@ class Player < Chingu::GameObject
     dy = $window.mouse_y - y
     self.angle_rad = Math.acos( dx / Math.hypot(dx, dy) )
     self.angle = 360 - angle if dy < 0
+
+    self.y = @game_area.top    if self.y < @game_area.top
+    self.y = @game_area.bottom if self.y > @game_area.bottom
+
+    self.x = @game_area.left   if self.x < @game_area.left
+    self.x = @game_area.right  if self.x > @game_area.right
   end
 
   def angle_rad=(value)
