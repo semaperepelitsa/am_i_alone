@@ -19,8 +19,16 @@ class Player < Chingu::GameObject
 
   def update
     super
-    # p $window.mouse_x, $window.mouse_y
-    self.angle = 30
+
+    # FUCKING MATH
+    dx = $window.mouse_x - x
+    dy = $window.mouse_y - y
+    self.angle_rad = Math.acos( dx / Math.hypot(dx, dy) )
+    self.angle = 360 - angle if dy < 0
+  end
+
+  def angle_rad=(value)
+    @angle = value * 180 / Math::PI
   end
 
   def holding_left
