@@ -16,7 +16,7 @@ class Play < Chingu::GameState
 
     self.input = { :p => :pause }
 
-    @player = Player.create(x: 50, y: 300, zorder: 300)
+    @player = Player.create(x: 50, y: 300)
     @bg = Gosu::Color::GREEN
   end
 
