@@ -5,7 +5,7 @@ class Player < Chingu::GameObject
   traits :velocity
   SPEED = 3
 
-  attr_accessor :weapon
+  attr_reader :weapon
 
   def initialize(options = {})
     super(options.merge(image: 'player.png', zorder: 300))
@@ -14,8 +14,13 @@ class Player < Chingu::GameObject
                    :holding_up,
                    :holding_down ]
 
-    self.weapon = Handgun.create(player: self)
+    self.weapon = options[:weapon]
     @game_area = options.fetch(:game_area)
+  end
+
+  def weapon=(new_weapon)
+    @weapon = new_weapon
+    @weapon.player = self
   end
 
   def update

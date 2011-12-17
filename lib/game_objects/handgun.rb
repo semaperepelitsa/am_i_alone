@@ -1,9 +1,11 @@
 require "chingu"
 
 class Handgun < Chingu::GameObject
+  attr_accessor :player
+
   def initialize(options = {})
     super(options.merge(image: 'handgun.png', zorder: 310))
-    @player = options.fetch(:player)
+    @player = options[:player]
   end
 
   def update
