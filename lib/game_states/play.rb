@@ -6,7 +6,7 @@ class Play < Chingu::GameState
   traits :viewport
 
   def setup
-    # viewport.game_area = [ 0, 0,   3000, $window.height]
+    viewport.game_area = [ 0, 0,   3000, $window.height]
     @parallax = Chingu::Parallax.new(:x => 0, :y => 0, :rotation_center => :top_left)
     @parallax.add_layer(
       :image => "grass.png",
@@ -17,9 +17,9 @@ class Play < Chingu::GameState
 
     self.input = { :p => :pause }
 
-    Cursor.create
+    @cursor = Cursor.new(viewport: viewport)
 
-    @player = Player.create(x: 50, y: 300, game_area: viewport.game_area, weapon: Handgun.create)
+    @player = Player.create(x: 50, y: 300, game_area: viewport.game_area, cursor: @cursor, weapon: Handgun.create)
     @bg = Gosu::Color::GREEN
   end
 
@@ -27,6 +27,7 @@ class Play < Chingu::GameState
     super
     fill @bg
     @parallax.draw
+    viewport.apply { @cursor.draw }
   end
 
   def update
@@ -34,6 +35,7 @@ class Play < Chingu::GameState
     viewport.center_around(@player)
     @parallax.camera_x, @parallax.camera_y = self.viewport.x.to_i, self.viewport.y.to_i
     @parallax.update
+    @cursor.update
   end
 
   def pause

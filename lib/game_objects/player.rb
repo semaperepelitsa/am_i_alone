@@ -5,6 +5,7 @@ class Player < Chingu::GameObject
   traits :velocity
   SPEED = 3
 
+  attr_accessor :cursor
   attr_reader :weapon
 
   def initialize(options = {})
@@ -14,6 +15,7 @@ class Player < Chingu::GameObject
                    :holding_up,
                    :holding_down ]
 
+    self.cursor = options.fetch(:cursor)
     self.weapon = options[:weapon]
     @game_area = options.fetch(:game_area)
   end
@@ -27,8 +29,8 @@ class Player < Chingu::GameObject
     super
 
     # FUCKING MATH
-    dx = $window.mouse_x - x
-    dy = $window.mouse_y - y
+    dx = @cursor.x - x
+    dy = @cursor.y - y
     self.angle_rad = Math.acos( dx / Math.hypot(dx, dy) )
     self.angle = 360 - angle if dy < 0
 
