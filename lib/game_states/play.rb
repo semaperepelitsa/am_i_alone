@@ -81,7 +81,7 @@ class Play < Chingu::GameState
 
   def update
     super
-    $window.caption = "Not alone. Wave #{@wave}"
+    $window.caption = "Am I Alone? Wave #{@wave}"
     $window.caption += " speed: #{@speed}" if $development
     viewport.center_around(@player)
     @parallax.camera_x, @parallax.camera_y = self.viewport.x.to_i, self.viewport.y.to_i
