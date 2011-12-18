@@ -2,6 +2,7 @@ require "chingu"
 require "player"
 require "cursor"
 require "zombi"
+require "health_bar"
 
 class Play < Chingu::GameState
   traits :viewport
@@ -21,6 +22,7 @@ class Play < Chingu::GameState
     @cursor = Cursor.new(viewport: viewport)
 
     @player = Player.create(x: 50, y: 300, game_area: viewport.game_area, cursor: @cursor, weapon: Handgun.create)
+    @health_bar = HealthBar.new(victim: @player)
     (n = 5).times do |i|
       Zombi.create(x: 300+rand(100), y: 10 + i * 500/n, game_area: viewport.game_area, target: @player)
     end
@@ -29,6 +31,7 @@ class Play < Chingu::GameState
   def draw
     super
     @parallax.draw
+    @health_bar.draw
     viewport.apply { @cursor.draw }
   end
 
@@ -37,6 +40,7 @@ class Play < Chingu::GameState
     viewport.center_around(@player)
     @parallax.camera_x, @parallax.camera_y = self.viewport.x.to_i, self.viewport.y.to_i
     @parallax.update
+    @health_bar.update
     @cursor.update
   end
 

@@ -6,7 +6,7 @@ class Player < Chingu::GameObject
   SPEED = 3
 
   attr_accessor :cursor
-  attr_reader :weapon
+  attr_reader :weapon, :hp
 
   def initialize(options = {})
     super(options.merge(image: 'player.png', zorder: 300))
