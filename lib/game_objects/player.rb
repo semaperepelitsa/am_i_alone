@@ -98,6 +98,10 @@ class Player < Chingu::GameObject
     self.hp += 1
   end
 
+  def upgrade_weapon
+    weapon.penetration += 1
+  end
+
   def dead?
     @dead
   end

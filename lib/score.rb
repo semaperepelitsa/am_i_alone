@@ -8,20 +8,22 @@ class Score
     when 0..9
       ""
     when 10..19
-      "Good!"
+      "OK"
     when 20..29
-      "Nice!"
+      "Good!"
     when 30..39
-      "Cool!"
+      "Nice!"
     when 40..49
-      "Wow!"
+      "Cool!"
     when 50..59
-      "Amazing!"
-    when 60..69
-      "Awesome!"
-    when 70..99
-      "Freaking Awesome!"
+      "Wow!"
+    when 60..79
+      "Very Cool!"
+    when 80..99
+      "Amazing"
     when 100..149
+      "Freaking Awesome!"
+    when 150..249
       "Unbelieveable!"
     else
       "Godlike!"
