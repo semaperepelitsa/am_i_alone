@@ -58,6 +58,7 @@ class Play < Chingu::GameState
 
   def will_spawn
     @wave += 1
+    @player.increase_hp if @wave % 10 == 0
     delay = 5000 - @wave * 30
     # delay = 300
     delay = 150 if delay < 150

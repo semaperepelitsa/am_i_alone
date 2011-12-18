@@ -6,8 +6,8 @@ class Player < Chingu::GameObject
   traits :velocity, :bounding_circle, :timer
   SPEED = 3
 
-  attr_accessor :cursor
-  attr_reader :weapon, :hp, :score
+  attr_accessor :cursor, :hp
+  attr_reader :weapon, :score
 
   def initialize(options = {})
     super(options.merge(image: 'player.png', zorder: 300))
@@ -92,6 +92,10 @@ class Player < Chingu::GameObject
 
   def die
     @dead = true
+  end
+
+  def increase_hp
+    self.hp += 1
   end
 
   def dead?
