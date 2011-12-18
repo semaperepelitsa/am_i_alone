@@ -32,20 +32,36 @@ class Play < Chingu::GameState
     @health_bar = HealthBar.new(victim: @player)
     @score_bar = ScoreBar.new(score: @score)
 
-    every(1000) do
-      (n = 5).times do |i|
-        margin = 30
-        if rand > 0.5
-          x = rand(margin)
-          x = $window.width - x if rand > 0.5
-          y = rand($window.height)
-        else
-          x = rand($window.width)
-          y = rand(margin)
-          y = $window.height - y if rand > 0.5
-        end
-        Zombi.create(x: x, y: y, game_area: viewport.game_area, target: @player)
+    @wave = 1
+    spawn(3)
+    will_spawn
+  end
+
+  def spawn(n = nil)
+    n ||= 2 + @wave * 2
+    n.times do |i|
+      margin = 30
+      if rand > 0.5
+        x = rand(margin)
+        x = $window.width - x if rand > 0.5
+        y = rand($window.height)
+      else
+        x = rand($window.width)
+        y = rand(margin)
+        y = $window.height - y if rand > 0.5
       end
+      Zombi.create(x: x, y: y, game_area: viewport.game_area, target: @player)
+    end
+  end
+
+  def will_spawn
+    @wave += 1
+    delay = 5000 - @wave * 30
+    # delay = 300
+    delay = 150 if delay < 150
+    after(delay) do
+      spawn
+      will_spawn
     end
   end
 
@@ -59,6 +75,7 @@ class Play < Chingu::GameState
 
   def update
     super
+    $window.caption = "FPS: #{$window.fps} - milliseconds_since_last_tick: #{$window.milliseconds_since_last_tick} - game objects# #{current_game_state.game_objects.size} Bullets# #{Bullet.size}" if $development
     viewport.center_around(@player)
     @parallax.camera_x, @parallax.camera_y = self.viewport.x.to_i, self.viewport.y.to_i
     @parallax.update
@@ -66,6 +83,7 @@ class Play < Chingu::GameState
     @score_bar.update
     @cursor.update
     switch_game_state(Dead.new(score: @score)) if @player.dead?
+    Bullet.destroy_if{ |bullet| bullet.outside_window? }
   end
 
   def pause

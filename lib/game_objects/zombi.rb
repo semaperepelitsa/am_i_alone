@@ -24,8 +24,9 @@ class Zombi < Chingu::GameObject
     unless @dying
       self.angle = Gosu.angle(x, y, target.x, target.y)
 
-      self.velocity_x = SPEED * Math.sin(angle_rad)
-      self.velocity_y = - SPEED * Math.cos(angle_rad)
+      cached_angle_rad = angle_rad
+      self.velocity_x = SPEED * Math.sin(cached_angle_rad)
+      self.velocity_y = - SPEED * Math.cos(cached_angle_rad)
 
       each_collision(Player) do |zombi, player|
         player.hit_by(zombi)
