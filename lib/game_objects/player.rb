@@ -10,10 +10,10 @@ class Player < Chingu::GameObject
 
   def initialize(options = {})
     super(options.merge(image: 'player.png', zorder: 300))
-    self.input = [ :holding_left,
-                   :holding_right,
-                   :holding_up,
-                   :holding_down ]
+    self.input = { :holding_a => :move_left,
+                   :holding_d => :move_right,
+                   :holding_w => :move_up,
+                   :holding_s => :move_down }
 
     self.cursor = options.fetch(:cursor)
     self.weapon = options[:weapon]
@@ -41,19 +41,19 @@ class Player < Chingu::GameObject
     @angle = value * 180 / Math::PI
   end
 
-  def holding_left
+  def move_left
     move(-SPEED, 0)
   end
 
-  def holding_right
+  def move_right
     move(SPEED, 0)
   end
 
-  def holding_up
+  def move_up
     move(0, -SPEED)
   end
 
-  def holding_down
+  def move_down
     move(0, SPEED)
   end
 end
