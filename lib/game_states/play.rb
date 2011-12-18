@@ -21,7 +21,9 @@ class Play < Chingu::GameState
     @cursor = Cursor.new(viewport: viewport)
 
     @player = Player.create(x: 50, y: 300, game_area: viewport.game_area, cursor: @cursor, weapon: Handgun.create)
-    @zombi = Zombi.create(x: 400, y: 300, game_area: viewport.game_area, target: @player)
+    (n = 5).times do |i|
+      Zombi.create(x: 300+rand(100), y: 10 + i * 500/n, game_area: viewport.game_area, target: @player)
+    end
   end
 
   def draw
