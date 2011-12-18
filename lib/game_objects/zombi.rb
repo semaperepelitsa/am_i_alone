@@ -18,7 +18,6 @@ class Zombi < Chingu::GameObject
     @game_area = options.fetch(:game_area)
 
     @hp = options[:hp] || 1
-    @ending_angle = angle
   end
 
   def remember_target_pos
@@ -30,13 +29,10 @@ class Zombi < Chingu::GameObject
     super
 
     unless @dying
-      if turn Gosu.angle(x, y, target_x, target_y)
-        self.velocity_x = 0
-        self.velocity_y = 0
-      else
-        self.velocity_x = SPEED * Math.sin(angle_rad)
-        self.velocity_y = - SPEED * Math.cos(angle_rad)
-      end
+      self.angle = Gosu.angle(x, y, target_x, target_y)
+
+      self.velocity_x = SPEED * Math.sin(angle_rad)
+      self.velocity_y = - SPEED * Math.cos(angle_rad)
     end
 
     self.y = @game_area.top    if self.y < @game_area.top
@@ -47,27 +43,11 @@ class Zombi < Chingu::GameObject
   end
 
   def angle_rad=(value)
-    self.angle = value * 180 / Math::PI
+    @angle = value * 180 / Math::PI
   end
 
   def angle_rad
     angle / 180 * Math::PI
-  end
-
-  def turn(ending_angle = nil)
-    @ending_angle = ending_angle if ending_angle
-    step = 1
-    diff = Gosu.angle_diff(angle, @ending_angle)
-    if diff.abs < 1
-      self.angle = @ending_angle
-      nil
-    elsif diff > 0
-      self.angle += step
-      step
-    else
-      self.angle -= step
-      step
-    end
   end
 
   def hit_by(bullet)
