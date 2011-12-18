@@ -2,7 +2,7 @@ require "chingu"
 require "handgun"
 
 class Player < Chingu::GameObject
-  traits :velocity
+  traits :velocity, :bounding_circle
   SPEED = 3
 
   attr_accessor :cursor
@@ -18,6 +18,7 @@ class Player < Chingu::GameObject
     self.cursor = options.fetch(:cursor)
     self.weapon = options[:weapon]
     @game_area = options.fetch(:game_area)
+    @hp = 10
   end
 
   def weapon=(new_weapon)
@@ -27,6 +28,14 @@ class Player < Chingu::GameObject
 
   def update
     super
+
+    if @thrown and velocity_x * acceleration_x > 0
+      @thrown = false
+      self.acceleration_x = 0
+      self.acceleration_y = 0
+      self.velocity_x = 0
+      self.velocity_y = 0
+    end
 
     self.angle = Gosu.angle(x, y, @cursor.x, @cursor.y)
 
@@ -55,5 +64,14 @@ class Player < Chingu::GameObject
 
   def move_down
     move(0, SPEED)
+  end
+
+  def hit_by(enemy)
+    @hp -= enemy.damage
+    @velocity_x = Gosu.offset_x(enemy.angle, 20)
+    @velocity_y = Gosu.offset_y(enemy.angle, 20)
+    @acceleration_x = - @velocity_x / 10
+    @acceleration_y = - @velocity_y / 10
+    @thrown = true
   end
 end

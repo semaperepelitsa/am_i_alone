@@ -7,6 +7,7 @@ class Zombi < Chingu::GameObject
 
   attr_reader :target_x, :target_y
   attr_accessor :target
+  attr_reader :damage
 
   def initialize(options = {})
     super(options.merge(image: 'zombi.png', zorder: 200))
@@ -15,6 +16,7 @@ class Zombi < Chingu::GameObject
     @game_area = options.fetch(:game_area)
 
     @hp = options[:hp] || 1
+    @damage = options[:damage] || 1
   end
 
   def update
@@ -25,6 +27,10 @@ class Zombi < Chingu::GameObject
 
       self.velocity_x = SPEED * Math.sin(angle_rad)
       self.velocity_y = - SPEED * Math.cos(angle_rad)
+
+      each_collision(Player) do |zombi, player|
+        player.hit_by(zombi)
+      end
     end
 
     self.y = @game_area.top    if self.y < @game_area.top
