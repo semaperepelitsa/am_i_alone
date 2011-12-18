@@ -6,7 +6,7 @@ class Zombi < Chingu::GameObject
   SPEED = 2
 
   attr_accessor :target
-  attr_reader :damage
+  attr_reader :damage, :score
 
   def initialize(options = {})
     super(options.merge(image: 'zombi.png', zorder: 200))
@@ -16,6 +16,7 @@ class Zombi < Chingu::GameObject
 
     @hp = options[:hp] || 1
     @damage = options[:damage] || 1
+    @score = options[:score] || 10
   end
 
   def update
@@ -59,6 +60,7 @@ class Zombi < Chingu::GameObject
     self.collidable = false
     self.velocity_y = 0
     self.velocity_x = 0
+    @target.killed(self)
     @color = Gosu::Color::RED.dup
     between(1,1000) { self.velocity_y = 0; self.alpha -= 2; }.then{ destroy }
   end

@@ -6,7 +6,7 @@ class Player < Chingu::GameObject
   SPEED = 3
 
   attr_accessor :cursor
-  attr_reader :weapon, :hp
+  attr_reader :weapon, :hp, :score
 
   def initialize(options = {})
     super(options.merge(image: 'player.png', zorder: 300))
@@ -19,6 +19,7 @@ class Player < Chingu::GameObject
     self.weapon = options[:weapon]
     @game_area = options.fetch(:game_area)
     @hp = 10
+    @score = 0
   end
 
   def weapon=(new_weapon)
@@ -73,5 +74,9 @@ class Player < Chingu::GameObject
     @acceleration_x = - @velocity_x / 10
     @acceleration_y = - @velocity_y / 10
     @thrown = true
+  end
+
+  def killed(enemy)
+    @score += enemy.score
   end
 end
