@@ -3,8 +3,9 @@ require "handgun"
 
 class Zombi < Chingu::GameObject
   traits :velocity, :timer
-  SPEED = 3
+  SPEED = 2
 
+  attr_reader :target_x, :target_y
   attr_accessor :target
 
   def initialize(options = {})
@@ -26,10 +27,14 @@ class Zombi < Chingu::GameObject
     super
 
     # FUCKING MATH
-    dx = @target_x - x
-    dy = @target_y - y
-    self.angle_rad = Math.acos( dx / Math.hypot(dx, dy) )
+    dx = target_x - x
+    dy = target_y - y
+    distance = Math.hypot(dx, dy)
+    self.angle_rad = Math.acos( dx / distance )
     self.angle = 360 - angle if dy < 0
+
+    self.velocity_x = SPEED * Math.cos(angle_rad)
+    self.velocity_y = SPEED * Math.sin(angle_rad)
 
     self.y = @game_area.top    if self.y < @game_area.top
     self.y = @game_area.bottom if self.y > @game_area.bottom
@@ -43,6 +48,6 @@ class Zombi < Chingu::GameObject
   end
 
   def angle_rad
-    @angle = value / 180 * Math::PI
+    angle / 180 * Math::PI
   end
 end
