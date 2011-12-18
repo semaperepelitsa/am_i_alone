@@ -12,24 +12,16 @@ class Zombi < Chingu::GameObject
     super(options.merge(image: 'zombi.png', zorder: 200))
 
     self.target = options[:target]
-    @lag = 1000
-    remember_target_pos
-    every(@lag) { remember_target_pos }
     @game_area = options.fetch(:game_area)
 
     @hp = options[:hp] || 1
-  end
-
-  def remember_target_pos
-    @target_x = target.x
-    @target_y = target.y
   end
 
   def update
     super
 
     unless @dying
-      self.angle = Gosu.angle(x, y, target_x, target_y)
+      self.angle = Gosu.angle(x, y, target.x, target.y)
 
       self.velocity_x = SPEED * Math.sin(angle_rad)
       self.velocity_y = - SPEED * Math.cos(angle_rad)
