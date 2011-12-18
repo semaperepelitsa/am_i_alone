@@ -21,6 +21,8 @@ class Score
       "Awesome!"
     when 70..99
       "Freaking Awesome!"
+    when 100..149
+      "Unbelieveable!"
     else
       "Godlike!"
     end
