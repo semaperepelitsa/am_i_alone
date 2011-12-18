@@ -1,13 +1,17 @@
 require "chingu"
 
 class Bullet < Chingu::GameObject
-  trait :velocity
+  traits :velocity, :collision_detection
+  trait :bounding_box
   SPEED = 30
+  attr_reader :damage
 
   def initialize(options = {})
     super({ image: 'bullet.png', zorder: 150 }.merge(options))
     @weapon = options.fetch(:weapon)
     @x, @y, @angle = @weapon.x, @weapon.y, @weapon.angle
+
+    @damage = options[:damage] || 1
 
     self.velocity_x = SPEED * Math.sin(angle_rad)
     self.velocity_y = - SPEED * Math.cos(angle_rad)
@@ -15,5 +19,12 @@ class Bullet < Chingu::GameObject
 
   def angle_rad
     angle / 180 * Math::PI
+  end
+
+  def update
+    super
+    each_collision(Zombi) do |bullet, zombi|
+      zombi.hit_by(bullet)
+    end
   end
 end
