@@ -3,8 +3,6 @@ require "handgun"
 
 class Zombi < Chingu::GameObject
   traits :velocity, :timer, :bounding_circle, :collision_detection
-  SPEED = 2
-
   attr_accessor :target
   attr_reader :damage
 
@@ -14,6 +12,7 @@ class Zombi < Chingu::GameObject
     self.target = options[:target]
     @game_area = options.fetch(:game_area)
 
+    @speed = options[:speed] || 2
     @hp = options[:hp] || 1
     @damage = options[:damage] || 1
   end
@@ -25,8 +24,8 @@ class Zombi < Chingu::GameObject
       self.angle = Gosu.angle(x, y, target.x, target.y)
 
       cached_angle_rad = angle_rad
-      self.velocity_x = SPEED * Math.sin(cached_angle_rad)
-      self.velocity_y = - SPEED * Math.cos(cached_angle_rad)
+      self.velocity_x = @speed * Math.sin(cached_angle_rad)
+      self.velocity_y = - @speed * Math.cos(cached_angle_rad)
 
       each_collision(Player) do |zombi, player|
         player.hit_by(zombi)

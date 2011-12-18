@@ -39,6 +39,7 @@ class Play < Chingu::GameState
 
   def spawn(n = nil)
     n ||= 2 + @wave * 2
+    speed = 0.8 + 0.1 * @wave
     n.times do |i|
       margin = 30
       if rand > 0.5
