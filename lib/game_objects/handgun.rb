@@ -1,4 +1,5 @@
 require "chingu"
+require "bullet"
 
 class Handgun < Chingu::GameObject
   attr_accessor :player
@@ -6,6 +7,7 @@ class Handgun < Chingu::GameObject
   def initialize(options = {})
     super(options.merge(image: 'handgun.png', zorder: 310))
     @player = options[:player]
+    self.input = { [:space, :mouse_left] => :fire }
   end
 
   def update
@@ -13,5 +15,9 @@ class Handgun < Chingu::GameObject
     self.x = @player.x
     self.y = @player.y
     self.angle = @player.angle
+  end
+
+  def fire
+    Bullet.create(weapon: self)
   end
 end
