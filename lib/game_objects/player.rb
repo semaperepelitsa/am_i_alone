@@ -28,11 +28,7 @@ class Player < Chingu::GameObject
   def update
     super
 
-    # FUCKING MATH
-    dx = @cursor.x - x
-    dy = @cursor.y - y
-    self.angle_rad = Math.acos( dx / Math.hypot(dx, dy) )
-    self.angle = 360 - angle if dy < 0
+    self.angle = Gosu.angle(x, y, @cursor.x, @cursor.y)
 
     self.y = @game_area.top    if self.y < @game_area.top
     self.y = @game_area.bottom if self.y > @game_area.bottom
