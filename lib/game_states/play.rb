@@ -1,6 +1,7 @@
 require "chingu"
 require "player"
 require "cursor"
+require "zombi"
 
 class Play < Chingu::GameState
   traits :viewport
@@ -20,6 +21,7 @@ class Play < Chingu::GameState
     @cursor = Cursor.new(viewport: viewport)
 
     @player = Player.create(x: 50, y: 300, game_area: viewport.game_area, cursor: @cursor, weapon: Handgun.create)
+    @zombi = Zombi.create(x: 400, y: 300, game_area: viewport.game_area, target: @player)
     @bg = Gosu::Color::GREEN
   end
 
