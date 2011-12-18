@@ -19,7 +19,7 @@ class Player < Chingu::GameObject
     self.cursor = options.fetch(:cursor)
     self.weapon = options[:weapon]
     @game_area = options.fetch(:game_area)
-    @hp = 2
+    @hp = 10
     @score = options.fetch(:score)
   end
 
