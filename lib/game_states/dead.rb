@@ -7,7 +7,7 @@ class Dead < Chingu::GameState
   def initialize(options = {})
     super
     @score = options[:score]
-    self.input = { [:enter, :return, :escape] => :restart }
+    self.input = { [:enter, :return] => :restart }
   end
 
   def restart
