@@ -39,7 +39,8 @@ class Play < Chingu::GameState
 
   def spawn(n = nil)
     n ||= 2 + @wave * 2
-    speed = 0.8 + 0.1 * @wave
+    @speed = 0.8 + 0.1 * @wave
+    @speed = 3 if @speed > 3
     n.times do |i|
       margin = 30
       if rand > 0.5
@@ -51,7 +52,7 @@ class Play < Chingu::GameState
         y = rand(margin)
         y = $window.height - y if rand > 0.5
       end
-      Zombi.create(x: x, y: y, game_area: viewport.game_area, target: @player)
+      Zombi.create(x: x, y: y, game_area: viewport.game_area, target: @player, speed: @speed)
     end
   end
 
@@ -76,7 +77,8 @@ class Play < Chingu::GameState
 
   def update
     super
-    $window.caption = "FPS: #{$window.fps} - milliseconds_since_last_tick: #{$window.milliseconds_since_last_tick} - game objects# #{current_game_state.game_objects.size} Bullets# #{Bullet.size}" if $development
+    $window.caption = "Not alone. Wave #{@wave}"
+    $window.caption += " speed: #{@speed}" if $development
     viewport.center_around(@player)
     @parallax.camera_x, @parallax.camera_y = self.viewport.x.to_i, self.viewport.y.to_i
     @parallax.update

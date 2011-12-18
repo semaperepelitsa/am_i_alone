@@ -3,7 +3,7 @@ require "handgun"
 require "score"
 
 class Player < Chingu::GameObject
-  traits :velocity, :bounding_circle
+  traits :velocity, :bounding_circle, :timer
   SPEED = 3
 
   attr_accessor :cursor
@@ -21,6 +21,8 @@ class Player < Chingu::GameObject
     @game_area = options.fetch(:game_area)
     @hp = 10
     @score = options.fetch(:score)
+    @invunerable_for = 400
+    @invunerable_alpha = 150
   end
 
   def weapon=(new_weapon)
@@ -37,6 +39,10 @@ class Player < Chingu::GameObject
       self.acceleration_y = 0
       self.velocity_x = 0
       self.velocity_y = 0
+      during(@invunerable_for) do
+        self.alpha += (255 - @invunerable_alpha).to_f/@invunerable_for
+      end
+      after(@invunerable_for + 1){ self.alpha = 255; self.collidable = true }
     end
 
     self.angle = Gosu.angle(x, y, @cursor.x, @cursor.y)
@@ -75,6 +81,8 @@ class Player < Chingu::GameObject
     @acceleration_x = - @velocity_x / 10
     @acceleration_y = - @velocity_y / 10
     @thrown = true
+    self.alpha = @invunerable_alpha
+    self.collidable = false
     die unless @hp > 0
   end
 
