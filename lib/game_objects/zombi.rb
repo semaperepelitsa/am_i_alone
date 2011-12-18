@@ -5,7 +5,6 @@ class Zombi < Chingu::GameObject
   traits :velocity, :timer, :bounding_circle, :collision_detection
   SPEED = 2
 
-  attr_reader :target_x, :target_y
   attr_accessor :target
   attr_reader :damage
 
