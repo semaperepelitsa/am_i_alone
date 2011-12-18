@@ -22,12 +22,10 @@ class Play < Chingu::GameState
 
     @player = Player.create(x: 50, y: 300, game_area: viewport.game_area, cursor: @cursor, weapon: Handgun.create)
     @zombi = Zombi.create(x: 400, y: 300, game_area: viewport.game_area, target: @player)
-    @bg = Gosu::Color::GREEN
   end
 
   def draw
     super
-    fill @bg
     @parallax.draw
     viewport.apply { @cursor.draw }
   end
