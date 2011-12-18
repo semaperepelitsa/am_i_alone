@@ -4,6 +4,7 @@ require "cursor"
 require "zombi"
 require "health_bar"
 require "score_bar"
+require "dead"
 
 class Play < Chingu::GameState
   traits :viewport, :timer
@@ -21,15 +22,17 @@ class Play < Chingu::GameState
     self.input = { :p => :pause }
 
     @cursor = Cursor.new(viewport: viewport)
+    @score = Score.new
 
     @player = Player.create(
       x: $window.width/2, y: $window.height/2,
-      game_area: viewport.game_area, cursor: @cursor, weapon: Handgun.create
+      game_area: viewport.game_area, cursor: @cursor, weapon: Handgun.create,
+      score: @score
     )
     @health_bar = HealthBar.new(victim: @player)
-    @score_bar = ScoreBar.new(player: @player)
+    @score_bar = ScoreBar.new(score: @score)
 
-    every(5000) do
+    every(1000) do
       (n = 5).times do |i|
         margin = 30
         if rand > 0.5
@@ -62,6 +65,7 @@ class Play < Chingu::GameState
     @health_bar.update
     @score_bar.update
     @cursor.update
+    switch_game_state(Dead.new(score: @score)) if @player.dead?
   end
 
   def pause

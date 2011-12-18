@@ -6,7 +6,7 @@ class Zombi < Chingu::GameObject
   SPEED = 2
 
   attr_accessor :target
-  attr_reader :damage, :score
+  attr_reader :damage
 
   def initialize(options = {})
     super(options.merge(image: 'zombi.png', zorder: 200))
@@ -16,7 +16,6 @@ class Zombi < Chingu::GameObject
 
     @hp = options[:hp] || 1
     @damage = options[:damage] || 1
-    @score = options[:score] || 10
   end
 
   def update

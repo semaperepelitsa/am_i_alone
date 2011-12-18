@@ -1,5 +1,6 @@
 require "chingu"
 require "handgun"
+require "score"
 
 class Player < Chingu::GameObject
   traits :velocity, :bounding_circle
@@ -18,8 +19,8 @@ class Player < Chingu::GameObject
     self.cursor = options.fetch(:cursor)
     self.weapon = options[:weapon]
     @game_area = options.fetch(:game_area)
-    @hp = 10
-    @score = 0
+    @hp = 2
+    @score = options.fetch(:score)
   end
 
   def weapon=(new_weapon)
@@ -74,9 +75,18 @@ class Player < Chingu::GameObject
     @acceleration_x = - @velocity_x / 10
     @acceleration_y = - @velocity_y / 10
     @thrown = true
+    die unless @hp > 0
   end
 
   def killed(enemy)
-    @score += enemy.score
+    @score.increment
+  end
+
+  def die
+    @dead = true
+  end
+
+  def dead?
+    @dead
   end
 end
