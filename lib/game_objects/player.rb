@@ -23,6 +23,8 @@ class Player < Chingu::GameObject
     @score = options.fetch(:score)
     @invunerable_for = 400
     @invunerable_alpha = 150
+
+    @hit_sounds = (1..2).map{ |i| Gosu::Sound["player_hit_#{i}.wav"] }
   end
 
   def weapon=(new_weapon)
@@ -83,6 +85,7 @@ class Player < Chingu::GameObject
     @thrown = true
     self.alpha = @invunerable_alpha
     self.collidable = false
+    @hit_sounds.sample.play
     die unless @hp > 0
   end
 
