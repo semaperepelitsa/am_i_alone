@@ -5,7 +5,7 @@ You awake in the grass with a gun in your hand. A beautiful sunny day... Oh, wai
 
 ![Screenshot](http://www.ludumdare.com/compo/wp-content/compo2/87574/8318-shot1.png)
 
-This is a Ludum Dare #22 Compo [entry](http://www.ludumdare.com/compo/ludum-dare-22/?action=preview&uid=8318).
+This is a Ludum Dare #22 Compo [entry](http://www.ludumdare.com/compo/ludum-dare-22/?action=preview&uid=8318). Submitted version tagged [v1.0.1](https://github.com/semaperepelitsa/am_i_alone/tree/v1.0.1).
 
 How to Play
 ---
