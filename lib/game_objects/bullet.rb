@@ -16,6 +16,9 @@ class Bullet < Chingu::GameObject
 
     self.velocity_x = SPEED * Math.sin(angle_rad)
     self.velocity_y = - SPEED * Math.cos(angle_rad)
+
+    i = rand(2) + 1
+    Gosu::Sound["bullet_#{i}.wav"].play
   end
 
   def angle_rad
