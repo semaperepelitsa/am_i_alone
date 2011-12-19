@@ -15,6 +15,8 @@ class Zombi < Chingu::GameObject
     @speed = options[:speed] || 2
     @hp = options[:hp] || 1
     @damage = options[:damage] || 1
+
+    @hit_sounds = (1..4).map{ |i| Gosu::Sound["zombi_hit_#{i}.wav"] }
   end
 
   def update
@@ -49,6 +51,7 @@ class Zombi < Chingu::GameObject
 
   def hit_by(bullet)
     @hp -= bullet.damage
+    @hit_sounds.sample.play if rand > 0.3
     if @hp <= 0
       die
     end
