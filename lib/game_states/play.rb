@@ -32,6 +32,7 @@ class Play < Chingu::GameState
     @health_bar = HealthBar.new(victim: @player)
     @score_bar = ScoreBar.new(score: @score)
 
+    @powerup_sound = Gosu::Sound['powerup.wav']
     @wave = 1
     spawn(3)
     will_spawn
@@ -61,6 +62,7 @@ class Play < Chingu::GameState
     if @wave % 5 == 0
       @player.increase_hp
       @player.upgrade_weapon
+      @powerup_sound.play
     end
     delay = 5000 - @wave * (100 * 1/(@wave*@wave))
     # delay = 300
