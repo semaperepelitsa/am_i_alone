@@ -46,7 +46,7 @@ class Zombi < Chingu::GameObject
   end
 
   def make_noise
-    @sounds.sample.play if rand < 0.2
+    @sounds.sample.play if rand < 0.3
   end
 
   def angle_rad=(value)
