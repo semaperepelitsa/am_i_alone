@@ -16,7 +16,11 @@ class Zombi < Chingu::GameObject
     @hp = options[:hp] || 1
     @damage = options[:damage] || 1
 
-    @hit_sounds = (1..4).map{ |i| Gosu::Sound["zombi_hit_#{i}.wav"] }
+    @sounds = (1..2).map{ |i| Gosu::Sound["zombi_#{i}.wav"] }
+    @hit_sounds = (1..2).map{ |i| Gosu::Sound["zombi_hit_#{i}.wav"] }
+
+    make_noise
+    every(rand(2000..3000)){ make_noise }
   end
 
   def update
@@ -39,6 +43,10 @@ class Zombi < Chingu::GameObject
 
     self.x = @game_area.left   if self.x < @game_area.left
     self.x = @game_area.right  if self.x > @game_area.right
+  end
+
+  def make_noise
+    @sounds.sample.play if rand < 0.2
   end
 
   def angle_rad=(value)
