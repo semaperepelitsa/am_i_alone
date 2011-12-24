@@ -42,7 +42,7 @@ class Player < Chingu::GameObject
       self.velocity_x = 0
       self.velocity_y = 0
       during(@invunerable_for) do
-        self.alpha += (255 - @invunerable_alpha).to_f/@invunerable_for
+        self.alpha += (255 - @invunerable_alpha) / @invunerable_for
       end
       after(@invunerable_for + 1){ self.alpha = 255; self.collidable = true }
     end
