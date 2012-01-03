@@ -16,3 +16,9 @@ OS X and others: sorry guys, haven't found any solution to package it. You will 
 
     gem install chingu
     ruby run.rb
+
+Resources
+---
+
+* [Grass picture](http://designresourcebox.com/grass-is-grass/) licensed free for commercial use.
+* Music: [Strange-Ending by Xerferic](http://www.newgrounds.com/audio/listen/463695), licensed under terms of [CC BY-NC-SA 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/)
