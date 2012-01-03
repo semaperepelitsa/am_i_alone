@@ -11,6 +11,7 @@ class Play < Chingu::GameState
 
   def setup
     # viewport.game_area = [ 0, 0,   3000, $window.height]
+    @fog = Gosu::Image['fog.png']
     @parallax = Chingu::Parallax.new(:x => 0, :y => 0, :rotation_center => :top_left)
     @parallax.add_layer(
       :image => "grass.png",
@@ -75,6 +76,7 @@ class Play < Chingu::GameState
 
   def draw
     super
+    @fog.draw(0, 0, 9000)
     @parallax.draw
     @health_bar.draw
     @score_bar.draw
