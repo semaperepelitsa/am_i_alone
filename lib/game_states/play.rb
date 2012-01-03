@@ -19,6 +19,8 @@ class Play < Chingu::GameState
       :repeat_y => false,
       # :damping => 5
     )
+    @music = Gosu::Song['music.mp3']
+    @music.play(true)
 
     self.input = { :p => :pause }
 
