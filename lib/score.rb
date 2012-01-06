@@ -5,25 +5,25 @@ class Score
 
   def description
     case @value
-    when 0..9
+    when 0..19
       ""
-    when 10..19
+    when 20..49
       "OK"
-    when 20..29
+    when 50..79
       "Good!"
-    when 30..39
-      "Nice!"
-    when 40..49
-      "Cool!"
-    when 50..59
-      "Wow!"
-    when 60..79
-      "Very Cool!"
     when 80..99
+      "Nice!"
+    when 100..199
+      "Cool!"
+    when 200..399
+      "Wow!"
+    when 400..599
+      "Very Cool!"
+    when 600..799
       "Amazing!"
-    when 100..149
+    when 800..999
       "Freaking Awesome!"
-    when 150..249
+    when 1000..1499
       "Unbelieveable!"
     else
       "Godlike!"
