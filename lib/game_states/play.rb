@@ -4,12 +4,14 @@ require "cursor"
 require "zombi"
 require "health_bar"
 require "score_bar"
+require "help_bar"
 require "dead"
 
 class Play < Chingu::GameState
   traits :viewport, :timer
 
   def setup
+    $play_count += 1
     # viewport.game_area = [ 0, 0,   3000, $window.height]
     @fog = Gosu::Image['fog.png']
     @parallax = Chingu::Parallax.new(:x => 0, :y => 0, :rotation_center => :top_left)
@@ -26,6 +28,7 @@ class Play < Chingu::GameState
 
     @cursor = Cursor.new(viewport: viewport)
     @score = Score.new
+    HelpBar.create if $play_count < 3
 
     @player = Player.create(
       x: $window.width/2, y: $window.height/2,
