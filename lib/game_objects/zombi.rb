@@ -19,7 +19,7 @@ class Zombi < Chingu::GameObject
     @sounds = (1..2).map{ |i| Gosu::Sound["zombi_#{i}.wav"] }
     @hit_sounds = (1..2).map{ |i| Gosu::Sound["zombi_hit_#{i}.wav"] }
 
-    make_noise
+    after(rand(300)) { make_noise }
     every(rand(2000..3000)){ make_noise }
   end
 
