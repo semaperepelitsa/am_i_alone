@@ -20,7 +20,7 @@ class Score
     when 60..79
       "Very Cool!"
     when 80..99
-      "Amazing"
+      "Amazing!"
     when 100..149
       "Freaking Awesome!"
     when 150..249
