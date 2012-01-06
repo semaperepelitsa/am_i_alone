@@ -31,7 +31,12 @@ class Score
   end
 
   def to_s
-    number_with_delimiter(@value, separator: ' ')
+    if @cached_value == @value
+      @cached_string
+    else
+      @cached_value = @value
+      @cached_string = number_with_delimiter(@value, separator: ' ')
+    end
   end
 
   def increment
